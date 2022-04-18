@@ -58,9 +58,9 @@ static void Irq6Handler()
 		{
 			custom.color[0] = 0xff0;
 			custom.color[0] = 0x000;
-			ciab.ciatodhi  = (kAlarmCount - 1) >> 16;
-			ciab.ciatodmid = (kAlarmCount - 1) >> 8;
-			ciab.ciatodlow = (kAlarmCount - 1);
+			ciab.ciatodhi  = (kAlarmCount - 10) >> 16;
+			ciab.ciatodmid = (kAlarmCount - 10) >> 8;
+			ciab.ciatodlow = (kAlarmCount - 10);
 
 			sToggle = true;
 

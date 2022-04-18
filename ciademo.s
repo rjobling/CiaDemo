@@ -601,12 +601,12 @@ bool System_TestLMB()
  648:	|  |   move.w #4080,dff180 <gcc8_c_support.c.ba290747+0xdf87e0>
 			custom.color[0] = 0x000;
  650:	|  |   move.w #0,dff180 <gcc8_c_support.c.ba290747+0xdf87e0>
-			ciab.ciatodhi  = (kAlarmCount - 1) >> 16;
+			ciab.ciatodhi  = (kAlarmCount - 10) >> 16;
  658:	|  |   move.b #0,bfda00 <gcc8_c_support.c.ba290747+0xbf7060>
-			ciab.ciatodmid = (kAlarmCount - 1) >> 8;
+			ciab.ciatodmid = (kAlarmCount - 10) >> 8;
  660:	|  |   move.b #0,bfd900 <gcc8_c_support.c.ba290747+0xbf6f60>
-			ciab.ciatodlow = (kAlarmCount - 1);
- 668:	|  |   move.b #89,bfd800 <gcc8_c_support.c.ba290747+0xbf6e60>
+			ciab.ciatodlow = (kAlarmCount - 10);
+ 668:	|  |   move.b #80,bfd800 <gcc8_c_support.c.ba290747+0xbf6e60>
 			sToggle = true;
  670:	|  |   move.b #1,274a <_ZL7sToggle>
 			asm("stop #0x2500\n");
