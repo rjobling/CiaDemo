@@ -155,11 +155,25 @@ bool System_Init()
 	sSavedCIABCRA = ciab.ciacra;
 	sSavedCIABCRB = ciab.ciacrb;
 
+	// Clear CIA Alarm count.
+	ciab.ciacrb = CIACRBF_ALARM;
+	ciab.ciatodhi = 0;
+	ciab.ciatodmid = 0;
+	ciab.ciatodlow = 0;
+
 	// Clear all CIA controls.
 	ciaa.ciacra = 0;
 	ciaa.ciacrb = 0;
 	ciab.ciacra = 0;
 	ciab.ciacrb = 0;
+
+	// Clear CIA TOD count.
+	ciab.ciatodhi = 0;
+	ciab.ciatodmid = 0;
+	ciab.ciatodlow = 0;
+
+	// Pause CIA TOD count.
+	ciab.ciatodhi = 0;
 
 	// Set all colors to black.
 	for (int i = 0; i < countof(custom.color); i++)
