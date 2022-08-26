@@ -70,7 +70,10 @@ bool System_Init()
 
 	#if !defined(LDOS)
 
+	#pragma GCC diagnostic push
+	#pragma GCC diagnostic ignored "-Warray-bounds"
 	SysBase = *((struct ExecBase**) 4);
+	#pragma GCC diagnostic pop
 
 	sVBR = 0;
 	if (SysBase->AttnFlags & AFF_68010)
