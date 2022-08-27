@@ -214,86 +214,86 @@ bool System_Init()
 
 	// Save current interrupt and DMA settings.
 	sSavedADKCON = custom.adkconr;
- 1ac:	|  |  |  |            move.w dff010 <gcc8_c_support.c.50501803+0xdf864d>,d4
+ 1ac:	|  |  |  |            move.w dff010 <gcc8_c_support.c.b6fccb72+0xdf864d>,d4
  1b2:	|  |  |  |            move.w d4,274c <_ZL12sSavedADKCON>
 	sSavedDMACON = custom.dmaconr;
- 1b8:	|  |  |  |            move.w dff002 <gcc8_c_support.c.50501803+0xdf863f>,d3
+ 1b8:	|  |  |  |            move.w dff002 <gcc8_c_support.c.b6fccb72+0xdf863f>,d3
  1be:	|  |  |  |            move.w d3,274a <_ZL12sSavedDMACON>
 	sSavedINTENA = custom.intenar;
- 1c4:	|  |  |  |            move.w dff01c <gcc8_c_support.c.50501803+0xdf8659>,d2
+ 1c4:	|  |  |  |            move.w dff01c <gcc8_c_support.c.b6fccb72+0xdf8659>,d2
  1ca:	|  |  |  |            move.w d2,2748 <_ZL12sSavedINTENA>
 
 	// Disable all interrupts.
 	custom.intena = (u16) ~INTF_SETCLR;
- 1d0:	|  |  |  |            move.w #32767,dff09a <gcc8_c_support.c.50501803+0xdf86d7>
+ 1d0:	|  |  |  |            move.w #32767,dff09a <gcc8_c_support.c.b6fccb72+0xdf86d7>
 
 	// Clear all pending interrupts.
 	custom.intreq = (u16) ~INTF_SETCLR;
- 1d8:	|  |  |  |            move.w #32767,dff09c <gcc8_c_support.c.50501803+0xdf86d9>
+ 1d8:	|  |  |  |            move.w #32767,dff09c <gcc8_c_support.c.b6fccb72+0xdf86d9>
 
 	// Clear all DMA channels.
 	custom.dmacon = (u16) ~DMAF_SETCLR;
- 1e0:	|  |  |  |            move.w #32767,dff096 <gcc8_c_support.c.50501803+0xdf86d3>
+ 1e0:	|  |  |  |            move.w #32767,dff096 <gcc8_c_support.c.b6fccb72+0xdf86d3>
 
 	// Disable all CIA interrupts.
 	ciaa.ciaicr = (u8) ~CIAICRF_SETCLR;
- 1e8:	|  |  |  |            move.b #127,bfed01 <gcc8_c_support.c.50501803+0xbf833e>
+ 1e8:	|  |  |  |            move.b #127,bfed01 <gcc8_c_support.c.b6fccb72+0xbf833e>
 	ciab.ciaicr = (u8) ~CIAICRF_SETCLR;
- 1f0:	|  |  |  |            move.b #127,bfdd00 <gcc8_c_support.c.50501803+0xbf733d>
+ 1f0:	|  |  |  |            move.b #127,bfdd00 <gcc8_c_support.c.b6fccb72+0xbf733d>
 
 	// Save current CIA interrupts, which clears any pending.
 	sSavedCIAAICR = ciaa.ciaicr;
- 1f8:	|  |  |  |            move.b bfed01 <gcc8_c_support.c.50501803+0xbf833e>,d6
+ 1f8:	|  |  |  |            move.b bfed01 <gcc8_c_support.c.b6fccb72+0xbf833e>,d6
  1fe:	|  |  |  |            move.b d6,2743 <_ZL13sSavedCIAAICR>
 	sSavedCIABICR = ciab.ciaicr;
- 204:	|  |  |  |            move.b bfdd00 <gcc8_c_support.c.50501803+0xbf733d>,d5
+ 204:	|  |  |  |            move.b bfdd00 <gcc8_c_support.c.b6fccb72+0xbf733d>,d5
  20a:	|  |  |  |            move.b d5,2742 <_ZL13sSavedCIABICR>
 
 	// Save current CIA controls.
 	sSavedCIAACRA = ciaa.ciacra;
- 210:	|  |  |  |            move.b bfee01 <gcc8_c_support.c.50501803+0xbf843e>,51(sp)
+ 210:	|  |  |  |            move.b bfee01 <gcc8_c_support.c.b6fccb72+0xbf843e>,51(sp)
  218:	|  |  |  |            move.b 51(sp),2747 <_ZL13sSavedCIAACRA>
 	sSavedCIAACRB = ciaa.ciacrb;
- 220:	|  |  |  |            move.b bfef01 <gcc8_c_support.c.50501803+0xbf853e>,52(sp)
+ 220:	|  |  |  |            move.b bfef01 <gcc8_c_support.c.b6fccb72+0xbf853e>,52(sp)
  228:	|  |  |  |            move.b 52(sp),2746 <_ZL13sSavedCIAACRB>
 	sSavedCIABCRA = ciab.ciacra;
- 230:	|  |  |  |            move.b bfde00 <gcc8_c_support.c.50501803+0xbf743d>,53(sp)
+ 230:	|  |  |  |            move.b bfde00 <gcc8_c_support.c.b6fccb72+0xbf743d>,53(sp)
  238:	|  |  |  |            move.b 53(sp),2745 <_ZL13sSavedCIABCRA>
 	sSavedCIABCRB = ciab.ciacrb;
- 240:	|  |  |  |            move.b bfdf00 <gcc8_c_support.c.50501803+0xbf753d>,d7
+ 240:	|  |  |  |            move.b bfdf00 <gcc8_c_support.c.b6fccb72+0xbf753d>,d7
  246:	|  |  |  |            move.b d7,2744 <_ZL13sSavedCIABCRB>
 
 	// Clear CIA Alarm count.
 	ciab.ciacrb = CIACRBF_ALARM;
- 24c:	|  |  |  |            move.b #-128,bfdf00 <gcc8_c_support.c.50501803+0xbf753d>
+ 24c:	|  |  |  |            move.b #-128,bfdf00 <gcc8_c_support.c.b6fccb72+0xbf753d>
 	ciab.ciatodhi = 0;
- 254:	|  |  |  |            move.b #0,bfda00 <gcc8_c_support.c.50501803+0xbf703d>
+ 254:	|  |  |  |            move.b #0,bfda00 <gcc8_c_support.c.b6fccb72+0xbf703d>
 	ciab.ciatodmid = 0;
- 25c:	|  |  |  |            move.b #0,bfd900 <gcc8_c_support.c.50501803+0xbf6f3d>
+ 25c:	|  |  |  |            move.b #0,bfd900 <gcc8_c_support.c.b6fccb72+0xbf6f3d>
 	ciab.ciatodlow = 0;
- 264:	|  |  |  |            move.b #0,bfd800 <gcc8_c_support.c.50501803+0xbf6e3d>
+ 264:	|  |  |  |            move.b #0,bfd800 <gcc8_c_support.c.b6fccb72+0xbf6e3d>
 
 	// Clear all CIA controls.
 	ciaa.ciacra = 0;
- 26c:	|  |  |  |            move.b #0,bfee01 <gcc8_c_support.c.50501803+0xbf843e>
+ 26c:	|  |  |  |            move.b #0,bfee01 <gcc8_c_support.c.b6fccb72+0xbf843e>
 	ciaa.ciacrb = 0;
- 274:	|  |  |  |            move.b #0,bfef01 <gcc8_c_support.c.50501803+0xbf853e>
+ 274:	|  |  |  |            move.b #0,bfef01 <gcc8_c_support.c.b6fccb72+0xbf853e>
 	ciab.ciacra = 0;
- 27c:	|  |  |  |            move.b #0,bfde00 <gcc8_c_support.c.50501803+0xbf743d>
+ 27c:	|  |  |  |            move.b #0,bfde00 <gcc8_c_support.c.b6fccb72+0xbf743d>
 	ciab.ciacrb = 0;
- 284:	|  |  |  |            move.b #0,bfdf00 <gcc8_c_support.c.50501803+0xbf753d>
+ 284:	|  |  |  |            move.b #0,bfdf00 <gcc8_c_support.c.b6fccb72+0xbf753d>
 
 	// Clear CIA TOD count.
 	ciab.ciatodhi = 0;
- 28c:	|  |  |  |            move.b #0,bfda00 <gcc8_c_support.c.50501803+0xbf703d>
+ 28c:	|  |  |  |            move.b #0,bfda00 <gcc8_c_support.c.b6fccb72+0xbf703d>
 	ciab.ciatodmid = 0;
- 294:	|  |  |  |            move.b #0,bfd900 <gcc8_c_support.c.50501803+0xbf6f3d>
+ 294:	|  |  |  |            move.b #0,bfd900 <gcc8_c_support.c.b6fccb72+0xbf6f3d>
 	ciab.ciatodlow = 0;
- 29c:	|  |  |  |            move.b #0,bfd800 <gcc8_c_support.c.50501803+0xbf6e3d>
+ 29c:	|  |  |  |            move.b #0,bfd800 <gcc8_c_support.c.b6fccb72+0xbf6e3d>
 
 	// Pause CIA TOD count.
 	ciab.ciatodhi = 0;
- 2a4:	|  |  |  |            move.b #0,bfda00 <gcc8_c_support.c.50501803+0xbf703d>
+ 2a4:	|  |  |  |            move.b #0,bfda00 <gcc8_c_support.c.b6fccb72+0xbf703d>
 
 	// Set all colors to black.
 	for (int i = 0; i < countof(custom.color); i++)
@@ -316,23 +316,23 @@ bool System_Init()
 void System_WaitVbl(u32 vend, u32 mask)
 {
 	while ((custom.vpos32 & mask) == vend) {}
- 2cc:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 2cc:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  2d2:	|  |  |  |        |   andi.l #130816,d0
  2d8:	|  |  |  |        \-- beq.s 2cc <main+0x240>
 	while ((custom.vpos32 & mask) != vend) {}
- 2da:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 2da:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  2e0:	|  |  |  |        |   andi.l #130816,d0
  2e6:	|  |  |  |        \-- bne.s 2da <main+0x24e>
 	while ((custom.vpos32 & mask) == vend) {}
- 2e8:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 2e8:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  2ee:	|  |  |  |        |   andi.l #130816,d0
  2f4:	|  |  |  |        \-- beq.s 2e8 <main+0x25c>
 	while ((custom.vpos32 & mask) != vend) {}
- 2f6:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 2f6:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  2fc:	|  |  |  |        |   andi.l #130816,d0
  302:	|  |  |  |        \-- bne.s 2f6 <main+0x26a>
 	custom.vposw = 0x8000;
- 304:	|  |  |  |            move.w #-32768,dff02a <gcc8_c_support.c.50501803+0xdf8667>
+ 304:	|  |  |  |            move.w #-32768,dff02a <gcc8_c_support.c.b6fccb72+0xdf8667>
 	return *((System_IrqFunc**) (((u8*) sVBR) + 0x64));
  30c:	|  |  |  |            movea.l 275e <_ZL4sVBR>,a3
  312:	|  |  |  |            movea.l 100(a3),a6
@@ -351,11 +351,11 @@ void System_WaitVbl(u32 vend, u32 mask)
 	sSavedIrq6Handler = System_GetIrq6Handler();
  338:	|  |  |  |            move.l a4,2752 <_ZL17sSavedIrq6Handler>
 	while ((custom.vpos32 & mask) == vend) {}
- 33e:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 33e:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  344:	|  |  |  |        |   andi.l #130816,d0
  34a:	|  |  |  |        \-- beq.s 33e <main+0x2b2>
 	while ((custom.vpos32 & mask) != vend) {}
- 34c:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 34c:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  352:	|  |  |  |        |   andi.l #130816,d0
  358:	|  |  |  |        \-- bne.s 34c <main+0x2c0>
 	System_WaitVbl();
@@ -364,44 +364,44 @@ void System_WaitVbl(u32 vend, u32 mask)
 	*((System_IrqFunc**) (((u8*) sVBR) + 0x78)) = func;
  362:	|  |  |  |            move.l #1558,120(a3)
 	ciab.ciacra = CIACRAF_RUNMODE;
- 36a:	|  |  |  |            move.b #8,bfde00 <gcc8_c_support.c.50501803+0xbf743d>
+ 36a:	|  |  |  |            move.b #8,bfde00 <gcc8_c_support.c.b6fccb72+0xbf743d>
 	ciab.ciaicr = CIAICRF_SETCLR | CIAICRF_TA;
- 372:	|  |  |  |            move.b #-127,bfdd00 <gcc8_c_support.c.50501803+0xbf733d>
+ 372:	|  |  |  |            move.b #-127,bfdd00 <gcc8_c_support.c.b6fccb72+0xbf733d>
 	ciab.ciatalo = kATimerCount & 255;
- 37a:	|  |  |  |            move.b #-72,bfd400 <gcc8_c_support.c.50501803+0xbf6a3d>
+ 37a:	|  |  |  |            move.b #-72,bfd400 <gcc8_c_support.c.b6fccb72+0xbf6a3d>
 	ciab.ciacrb = CIACRAF_RUNMODE;
- 382:	|  |  |  |            move.b #8,bfdf00 <gcc8_c_support.c.50501803+0xbf753d>
+ 382:	|  |  |  |            move.b #8,bfdf00 <gcc8_c_support.c.b6fccb72+0xbf753d>
 	ciab.ciaicr = CIAICRF_SETCLR | CIAICRF_TB;
- 38a:	|  |  |  |            move.b #-126,bfdd00 <gcc8_c_support.c.50501803+0xbf733d>
+ 38a:	|  |  |  |            move.b #-126,bfdd00 <gcc8_c_support.c.b6fccb72+0xbf733d>
 	ciab.ciatblo = kBTimerCount & 255;
- 392:	|  |  |  |            move.b #-84,bfd600 <gcc8_c_support.c.50501803+0xbf6c3d>
+ 392:	|  |  |  |            move.b #-84,bfd600 <gcc8_c_support.c.b6fccb72+0xbf6c3d>
 	ciab.ciaicr = CIAICRF_SETCLR | CIAICRF_ALRM;
- 39a:	|  |  |  |            move.b #-124,bfdd00 <gcc8_c_support.c.50501803+0xbf733d>
+ 39a:	|  |  |  |            move.b #-124,bfdd00 <gcc8_c_support.c.b6fccb72+0xbf733d>
 	ciab.ciacrb |= CIACRBF_ALARM;
- 3a2:	|  |  |  |            move.b bfdf00 <gcc8_c_support.c.50501803+0xbf753d>,d0
+ 3a2:	|  |  |  |            move.b bfdf00 <gcc8_c_support.c.b6fccb72+0xbf753d>,d0
  3a8:	|  |  |  |            ori.b #-128,d0
- 3ac:	|  |  |  |            move.b d0,bfdf00 <gcc8_c_support.c.50501803+0xbf753d>
+ 3ac:	|  |  |  |            move.b d0,bfdf00 <gcc8_c_support.c.b6fccb72+0xbf753d>
 	ciab.ciatodhi  = kAlarmCount >> 16;
- 3b2:	|  |  |  |            move.b #0,bfda00 <gcc8_c_support.c.50501803+0xbf703d>
+ 3b2:	|  |  |  |            move.b #0,bfda00 <gcc8_c_support.c.b6fccb72+0xbf703d>
 	ciab.ciatodmid = kAlarmCount >> 8;
- 3ba:	|  |  |  |            move.b #0,bfd900 <gcc8_c_support.c.50501803+0xbf6f3d>
+ 3ba:	|  |  |  |            move.b #0,bfd900 <gcc8_c_support.c.b6fccb72+0xbf6f3d>
 	ciab.ciatodlow = kAlarmCount;
- 3c2:	|  |  |  |            move.b #90,bfd800 <gcc8_c_support.c.50501803+0xbf6e3d>
+ 3c2:	|  |  |  |            move.b #90,bfd800 <gcc8_c_support.c.b6fccb72+0xbf6e3d>
 	ciab.ciacrb &= ~CIACRBF_ALARM;
- 3ca:	|  |  |  |            move.b bfdf00 <gcc8_c_support.c.50501803+0xbf753d>,d0
+ 3ca:	|  |  |  |            move.b bfdf00 <gcc8_c_support.c.b6fccb72+0xbf753d>,d0
  3d0:	|  |  |  |            andi.b #127,d0
- 3d4:	|  |  |  |            move.b d0,bfdf00 <gcc8_c_support.c.50501803+0xbf753d>
+ 3d4:	|  |  |  |            move.b d0,bfdf00 <gcc8_c_support.c.b6fccb72+0xbf753d>
 	System_WaitVbl();
  3da:	|  |  |  |            jsr (a2)
 	custom.intena = INTF_SETCLR | INTF_INTEN | INTF_EXTER;
- 3dc:	|  |  |  |            move.w #-8192,dff09a <gcc8_c_support.c.50501803+0xdf86d7>
+ 3dc:	|  |  |  |            move.w #-8192,dff09a <gcc8_c_support.c.b6fccb72+0xdf86d7>
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 bool System_TestLMB()
 {
 	return !(ciaa.ciapra & CIAF_GAMEPORT0);
- 3e4:	|  |  |  |            move.b bfe001 <gcc8_c_support.c.50501803+0xbf763e>,d0
+ 3e4:	|  |  |  |            move.b bfe001 <gcc8_c_support.c.b6fccb72+0xbf763e>,d0
 	if (System_Init())
 	{
 		if (Init())
@@ -410,62 +410,62 @@ bool System_TestLMB()
  3ea:	|  |  |  |            btst #6,d0
  3ee:	|  |  |  |  /-------- beq.s 440 <main+0x3b4>
 	while ((custom.vpos32 & mask) == vend) {}
- 3f0:	|  |  |  |  |  /----> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 3f0:	|  |  |  |  |  /----> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  3f6:	|  |  |  |  |  |      andi.l #130816,d0
  3fc:	|  |  |  |  |  +----- beq.s 3f0 <main+0x364>
 	while ((custom.vpos32 & mask) != vend) {}
- 3fe:	|  |  |  |  |  |  /-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 3fe:	|  |  |  |  |  |  /-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  404:	|  |  |  |  |  |  |   andi.l #130816,d0
  40a:	|  |  |  |  |  |  \-- bne.s 3fe <main+0x372>
 	ciab.ciatahi = kATimerCount >> 8;
- 40c:	|  |  |  |  |  |      move.b #11,bfd500 <gcc8_c_support.c.50501803+0xbf6b3d>
+ 40c:	|  |  |  |  |  |      move.b #11,bfd500 <gcc8_c_support.c.b6fccb72+0xbf6b3d>
 	ciab.ciatbhi = kBTimerCount >> 8;
- 414:	|  |  |  |  |  |      move.b #13,bfd700 <gcc8_c_support.c.50501803+0xbf6d3d>
+ 414:	|  |  |  |  |  |      move.b #13,bfd700 <gcc8_c_support.c.b6fccb72+0xbf6d3d>
 	ciab.ciatodhi  = 0;
- 41c:	|  |  |  |  |  |      move.b #0,bfda00 <gcc8_c_support.c.50501803+0xbf703d>
+ 41c:	|  |  |  |  |  |      move.b #0,bfda00 <gcc8_c_support.c.b6fccb72+0xbf703d>
 	ciab.ciatodmid = 0;
- 424:	|  |  |  |  |  |      move.b #0,bfd900 <gcc8_c_support.c.50501803+0xbf6f3d>
+ 424:	|  |  |  |  |  |      move.b #0,bfd900 <gcc8_c_support.c.b6fccb72+0xbf6f3d>
 	ciab.ciatodlow = 0;
- 42c:	|  |  |  |  |  |      move.b #0,bfd800 <gcc8_c_support.c.50501803+0xbf6e3d>
+ 42c:	|  |  |  |  |  |      move.b #0,bfd800 <gcc8_c_support.c.b6fccb72+0xbf6e3d>
 	return !(ciaa.ciapra & CIAF_GAMEPORT0);
- 434:	|  |  |  |  |  |      move.b bfe001 <gcc8_c_support.c.50501803+0xbf763e>,d0
+ 434:	|  |  |  |  |  |      move.b bfe001 <gcc8_c_support.c.b6fccb72+0xbf763e>,d0
 			while (!System_TestLMB())
  43a:	|  |  |  |  |  |      btst #6,d0
  43e:	|  |  |  |  |  \----- bne.s 3f0 <main+0x364>
 	custom.intena = INTF_EXTER;
- 440:	|  |  |  |  \-------> move.w #8192,dff09a <gcc8_c_support.c.50501803+0xdf86d7>
+ 440:	|  |  |  |  \-------> move.w #8192,dff09a <gcc8_c_support.c.b6fccb72+0xdf86d7>
 	System_WaitVbl();
  448:	|  |  |  |            jsr (a2)
 	*((System_IrqFunc**) (((u8*) sVBR) + 0x78)) = func;
  44a:	|  |  |  |            clr.l 120(a3)
 	while ((custom.vpos32 & mask) == vend) {}
- 44e:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 44e:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  454:	|  |  |  |        |   andi.l #130816,d0
  45a:	|  |  |  |        \-- beq.s 44e <main+0x3c2>
 	while ((custom.vpos32 & mask) != vend) {}
- 45c:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 45c:	|  |  |  |        /-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  462:	|  |  |  |        |   andi.l #130816,d0
  468:	|  |  |  |        \-- bne.s 45c <main+0x3d0>
 	u16 test = custom.dmaconr; // For compatiblity with A1000.
- 46a:	|  |  |  |            move.w dff002 <gcc8_c_support.c.50501803+0xdf863f>,d0
+ 46a:	|  |  |  |            move.w dff002 <gcc8_c_support.c.b6fccb72+0xdf863f>,d0
 	while (custom.dmaconr & DMAF_BLTDONE) {}
- 470:	|  |  |  |        /-> move.w dff002 <gcc8_c_support.c.50501803+0xdf863f>,d0
+ 470:	|  |  |  |        /-> move.w dff002 <gcc8_c_support.c.b6fccb72+0xdf863f>,d0
  476:	|  |  |  |        |   btst #14,d0
  47a:	|  |  |  |        \-- bne.s 470 <main+0x3e4>
 	ciaa.ciaicr = (u8) ~CIAICRF_SETCLR;
- 47c:	|  |  |  |            move.b #127,bfed01 <gcc8_c_support.c.50501803+0xbf833e>
+ 47c:	|  |  |  |            move.b #127,bfed01 <gcc8_c_support.c.b6fccb72+0xbf833e>
 	ciab.ciaicr = (u8) ~CIAICRF_SETCLR;
- 484:	|  |  |  |            move.b #127,bfdd00 <gcc8_c_support.c.50501803+0xbf733d>
+ 484:	|  |  |  |            move.b #127,bfdd00 <gcc8_c_support.c.b6fccb72+0xbf733d>
 	pending = ciaa.ciaicr;
- 48c:	|  |  |  |            move.b bfed01 <gcc8_c_support.c.50501803+0xbf833e>,d0
+ 48c:	|  |  |  |            move.b bfed01 <gcc8_c_support.c.b6fccb72+0xbf833e>,d0
 	pending = ciab.ciaicr;
- 492:	|  |  |  |            move.b bfdd00 <gcc8_c_support.c.50501803+0xbf733d>,d0
+ 492:	|  |  |  |            move.b bfdd00 <gcc8_c_support.c.b6fccb72+0xbf733d>,d0
 	custom.intena = (u16) ~INTF_SETCLR;
- 498:	|  |  |  |            move.w #32767,dff09a <gcc8_c_support.c.50501803+0xdf86d7>
+ 498:	|  |  |  |            move.w #32767,dff09a <gcc8_c_support.c.b6fccb72+0xdf86d7>
 	custom.intreq = (u16) ~INTF_SETCLR;
- 4a0:	|  |  |  |            move.w #32767,dff09c <gcc8_c_support.c.50501803+0xdf86d9>
+ 4a0:	|  |  |  |            move.w #32767,dff09c <gcc8_c_support.c.b6fccb72+0xdf86d9>
 	custom.dmacon = (u16) ~DMAF_SETCLR;
- 4a8:	|  |  |  |            move.w #32767,dff096 <gcc8_c_support.c.50501803+0xdf86d3>
+ 4a8:	|  |  |  |            move.w #32767,dff096 <gcc8_c_support.c.b6fccb72+0xdf86d3>
 	*((System_IrqFunc**) (((u8*) sVBR) + 0x64)) = func;
  4b0:	|  |  |  |            move.l a6,100(a3)
 	*((System_IrqFunc**) (((u8*) sVBR) + 0x68)) = func;
@@ -476,35 +476,35 @@ bool System_TestLMB()
  4be:	|  |  |  |            move.l a4,120(a3)
 	custom.cop1lc = (u32) GfxBase->copinit;
  4c2:	|  |  |  |            movea.l 274e <GfxBase>,a0
- 4c8:	|  |  |  |            move.l 38(a0),dff080 <gcc8_c_support.c.50501803+0xdf86bd>
+ 4c8:	|  |  |  |            move.l 38(a0),dff080 <gcc8_c_support.c.b6fccb72+0xdf86bd>
 	custom.cop2lc = (u32) GfxBase->LOFlist;
  4d0:	|  |  |  |            move.l 50(a0),d0
- 4d4:	|  |  |  |            move.l d0,dff084 <gcc8_c_support.c.50501803+0xdf86c1>
+ 4d4:	|  |  |  |            move.l d0,dff084 <gcc8_c_support.c.b6fccb72+0xdf86c1>
 	custom.copjmp1 = 0;
- 4da:	|  |  |  |            move.w #0,dff088 <gcc8_c_support.c.50501803+0xdf86c5>
+ 4da:	|  |  |  |            move.w #0,dff088 <gcc8_c_support.c.b6fccb72+0xdf86c5>
 	custom.adkcon = ADKF_SETCLR | sSavedADKCON;
  4e2:	|  |  |  |            ori.w #-32768,d4
- 4e6:	|  |  |  |            move.w d4,dff09e <gcc8_c_support.c.50501803+0xdf86db>
+ 4e6:	|  |  |  |            move.w d4,dff09e <gcc8_c_support.c.b6fccb72+0xdf86db>
 	custom.dmacon = DMAF_SETCLR | sSavedDMACON;
  4ec:	|  |  |  |            ori.w #-32768,d3
- 4f0:	|  |  |  |            move.w d3,dff096 <gcc8_c_support.c.50501803+0xdf86d3>
+ 4f0:	|  |  |  |            move.w d3,dff096 <gcc8_c_support.c.b6fccb72+0xdf86d3>
 	custom.intena = INTF_SETCLR | sSavedINTENA;
  4f6:	|  |  |  |            ori.w #-32768,d2
- 4fa:	|  |  |  |            move.w d2,dff09a <gcc8_c_support.c.50501803+0xdf86d7>
+ 4fa:	|  |  |  |            move.w d2,dff09a <gcc8_c_support.c.b6fccb72+0xdf86d7>
 	ciaa.ciacra = sSavedCIAACRA;
- 500:	|  |  |  |            move.b 51(sp),bfee01 <gcc8_c_support.c.50501803+0xbf843e>
+ 500:	|  |  |  |            move.b 51(sp),bfee01 <gcc8_c_support.c.b6fccb72+0xbf843e>
 	ciaa.ciacrb = sSavedCIAACRB;
- 508:	|  |  |  |            move.b 52(sp),bfef01 <gcc8_c_support.c.50501803+0xbf853e>
+ 508:	|  |  |  |            move.b 52(sp),bfef01 <gcc8_c_support.c.b6fccb72+0xbf853e>
 	ciab.ciacra = sSavedCIABCRA;
- 510:	|  |  |  |            move.b 53(sp),bfde00 <gcc8_c_support.c.50501803+0xbf743d>
+ 510:	|  |  |  |            move.b 53(sp),bfde00 <gcc8_c_support.c.b6fccb72+0xbf743d>
 	ciab.ciacrb = sSavedCIABCRB;
- 518:	|  |  |  |            move.b d7,bfdf00 <gcc8_c_support.c.50501803+0xbf753d>
+ 518:	|  |  |  |            move.b d7,bfdf00 <gcc8_c_support.c.b6fccb72+0xbf753d>
 	ciaa.ciaicr = sSavedCIAAICR;
- 51e:	|  |  |  |            move.b d6,bfed01 <gcc8_c_support.c.50501803+0xbf833e>
+ 51e:	|  |  |  |            move.b d6,bfed01 <gcc8_c_support.c.b6fccb72+0xbf833e>
 	ciab.ciaicr = sSavedCIABICR;
- 524:	|  |  |  |            move.b d5,bfdd00 <gcc8_c_support.c.50501803+0xbf733d>
+ 524:	|  |  |  |            move.b d5,bfdd00 <gcc8_c_support.c.b6fccb72+0xbf733d>
 	ciaa.ciaicr = CIAICRF_SETCLR | CIAICRF_SP;
- 52a:	|  |  |  |            move.b #-120,bfed01 <gcc8_c_support.c.50501803+0xbf833e>
+ 52a:	|  |  |  |            move.b #-120,bfed01 <gcc8_c_support.c.b6fccb72+0xbf833e>
 	Enable();
  532:	|  |  |  |            movea.l 273e <SysBase>,a6
  538:	|  |  |  |            jsr -126(a6)
@@ -581,23 +581,23 @@ bool System_TestLMB()
 {
  616:	       move.l d0,-(sp)
 	u8 pending = ciab.ciaicr;
- 618:	       move.b bfdd00 <gcc8_c_support.c.50501803+0xbf733d>,d0
+ 618:	       move.b bfdd00 <gcc8_c_support.c.b6fccb72+0xbf733d>,d0
 	custom.intreq = INTF_EXTER;
- 61e:	       move.w #8192,dff09c <gcc8_c_support.c.50501803+0xdf86d9>
+ 61e:	       move.w #8192,dff09c <gcc8_c_support.c.b6fccb72+0xdf86d9>
 	if (pending & CIAICRF_TA)
  626:	       btst #0,d0
  62a:	   /-- beq.s 63c <_ZL11Irq6Handlerv+0x26>
 		custom.color[0] = 0x0f0;
- 62c:	   |   move.w #240,dff180 <gcc8_c_support.c.50501803+0xdf87bd>
+ 62c:	   |   move.w #240,dff180 <gcc8_c_support.c.b6fccb72+0xdf87bd>
 		custom.color[0] = 0x000;
- 634:	   |   move.w #0,dff180 <gcc8_c_support.c.50501803+0xdf87bd>
+ 634:	   |   move.w #0,dff180 <gcc8_c_support.c.b6fccb72+0xdf87bd>
 	if (pending & CIAICRF_TB)
  63c:	   \-> btst #1,d0
  640:	   /-- beq.s 652 <_ZL11Irq6Handlerv+0x3c>
 		custom.color[0] = 0x00f;
- 642:	   |   move.w #15,dff180 <gcc8_c_support.c.50501803+0xdf87bd>
+ 642:	   |   move.w #15,dff180 <gcc8_c_support.c.b6fccb72+0xdf87bd>
 		custom.color[0] = 0x000;
- 64a:	   |   move.w #0,dff180 <gcc8_c_support.c.50501803+0xdf87bd>
+ 64a:	   |   move.w #0,dff180 <gcc8_c_support.c.b6fccb72+0xdf87bd>
 	if (pending & CIAICRF_ALRM)
  652:	   \-> btst #2,d0
  656:	/----- beq.s 694 <_ZL11Irq6Handlerv+0x7e>
@@ -605,15 +605,15 @@ bool System_TestLMB()
  658:	|      tst.b 2766 <_ZL7sToggle>
  65e:	|  /-- bne.s 698 <_ZL11Irq6Handlerv+0x82>
 			custom.color[0] = 0xff0;
- 660:	|  |   move.w #4080,dff180 <gcc8_c_support.c.50501803+0xdf87bd>
+ 660:	|  |   move.w #4080,dff180 <gcc8_c_support.c.b6fccb72+0xdf87bd>
 			custom.color[0] = 0x000;
- 668:	|  |   move.w #0,dff180 <gcc8_c_support.c.50501803+0xdf87bd>
+ 668:	|  |   move.w #0,dff180 <gcc8_c_support.c.b6fccb72+0xdf87bd>
 			ciab.ciatodhi  = (kAlarmCount - 10) >> 16;
- 670:	|  |   move.b #0,bfda00 <gcc8_c_support.c.50501803+0xbf703d>
+ 670:	|  |   move.b #0,bfda00 <gcc8_c_support.c.b6fccb72+0xbf703d>
 			ciab.ciatodmid = (kAlarmCount - 10) >> 8;
- 678:	|  |   move.b #0,bfd900 <gcc8_c_support.c.50501803+0xbf6f3d>
+ 678:	|  |   move.b #0,bfd900 <gcc8_c_support.c.b6fccb72+0xbf6f3d>
 			ciab.ciatodlow = (kAlarmCount - 10);
- 680:	|  |   move.b #80,bfd800 <gcc8_c_support.c.50501803+0xbf6e3d>
+ 680:	|  |   move.b #80,bfd800 <gcc8_c_support.c.b6fccb72+0xbf6e3d>
 			sToggle = true;
  688:	|  |   move.b #1,2766 <_ZL7sToggle>
 			asm("stop #0x2500\n");
@@ -622,9 +622,9 @@ bool System_TestLMB()
  694:	\--|-> move.l (sp)+,d0
  696:	   |   rte
 			custom.color[0] = 0xf00;
- 698:	   \-> move.w #3840,dff180 <gcc8_c_support.c.50501803+0xdf87bd>
+ 698:	   \-> move.w #3840,dff180 <gcc8_c_support.c.b6fccb72+0xdf87bd>
 			custom.color[0] = 0x000;
- 6a0:	       move.w #0,dff180 <gcc8_c_support.c.50501803+0xdf87bd>
+ 6a0:	       move.w #0,dff180 <gcc8_c_support.c.b6fccb72+0xdf87bd>
 			sToggle = false;
  6a8:	       clr.b 2766 <_ZL7sToggle>
 }
@@ -633,11 +633,11 @@ bool System_TestLMB()
 
 000006b2 <_Z14System_WaitVbljj.constprop.0>:
 	while ((custom.vpos32 & mask) == vend) {}
- 6b2:	/-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 6b2:	/-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  6b8:	|   andi.l #130816,d0
  6be:	\-- beq.s 6b2 <_Z14System_WaitVbljj.constprop.0>
 	while ((custom.vpos32 & mask) != vend) {}
- 6c0:	/-> move.l dff004 <gcc8_c_support.c.50501803+0xdf8641>,d0
+ 6c0:	/-> move.l dff004 <gcc8_c_support.c.b6fccb72+0xdf8641>,d0
  6c6:	|   andi.l #130816,d0
  6cc:	\-- bne.s 6c0 <_Z14System_WaitVbljj.constprop.0+0xe>
 }

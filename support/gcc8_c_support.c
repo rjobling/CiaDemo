@@ -9,8 +9,49 @@ unsigned long strlen(const char* s) {
 	return t;
 }
 
+void memclr(void* dest, unsigned long len) { // dest: 16bit-aligned, len: multiple of 2
+	__asm volatile (
+		"cmp.l #256, %[len]\n"
+		"blt 2f\n"
+		"add.l %[len], %[dest]\n"
+		"moveq #0, %%d0\n"
+		"moveq #0, %%d1\n"
+		"moveq #0, %%d2\n"
+		"moveq #0, %%d3\n"
+		"1:\n"
+		".rept 256/16\n"
+		"movem.l %%d0-%%d3, -(%[dest])\n"
+		".endr\n"
+		"sub.l #256, %[len]\n"
+		"cmp.l #256, %[len]\n"
+		"bge 1b\n"
+		"2:\n" // <256
+		"cmp.w #64, %[len]\n"
+		"blt 3f\n"
+		".rept 64/16\n"
+		"movem.l %%d0-%%d3, -(%[dest])\n"
+		".endr\n"
+		"sub.w #64, %[len]\n"
+		"bra 2b\n"
+		"3:\n" // <64
+		"lsr.w #2, %[len]\n" // 4
+		"bcc 4f\n" // stray word
+		"clr.w -(%[dest])\n"
+		"4:\n"
+		"moveq #64>>2, %%d0\n"
+		"sub.w %[len], %%d0\n"
+		"add.w %%d0, %%d0\n"
+		"jmp (2, %%d0.w, %%pc)\n"
+		".rept 64/4\n"
+		"clr.l -(%[dest])\n"
+		".endr\n"
+	: [dest]"+a"(dest), [len]"+d"(len)
+	:
+	: "memory", "d0", "d1", "d2", "d3", "cc");
+}
+
 __attribute__((optimize("no-tree-loop-distribute-patterns")))
-	void* memset(void *dest, int val, unsigned long len) {
+void* memset(void *dest, int val, unsigned long len) {
 	unsigned char *ptr = (unsigned char *)dest;
 	while(len-- > 0)
 		*ptr++ = val;
@@ -41,6 +82,32 @@ void* memmove(void *dest, const void *src, unsigned long len) {
 	}
 	return dest;
 }
+
+#if defined(DEBUG)
+
+// vbcc
+typedef unsigned char *va_list;
+#define va_start(ap, lastarg) ((ap)=(va_list)(&lastarg+1))
+
+void KPutCharX();
+void PutChar();
+
+__attribute__((noipa))
+void KPrintF(const char* fmt, ...) {
+	va_list vl;
+	va_start(vl, fmt);
+	union { long(*func)(long mode, const char* string); ULONG ulong; UWORD* puword; } UaeDbgLog;
+	UaeDbgLog.ulong = 0xf0ff60;
+	if(*UaeDbgLog.puword == 0x4eb9 || *UaeDbgLog.puword == 0xa00e) {
+		char temp[128];
+		RawDoFmt((CONST_STRPTR)fmt, vl, PutChar, temp);
+		UaeDbgLog.func(86, temp);
+	} else {
+		RawDoFmt((CONST_STRPTR)fmt, vl, KPutCharX, 0);
+	}
+}
+
+#endif
 
 int main();
 
@@ -75,28 +142,6 @@ void _start() {
 
 #if defined(DEBUG)
 
-// vbcc
-typedef unsigned char *va_list;
-#define va_start(ap, lastarg) ((ap)=(va_list)(&lastarg+1))
-
-void KPutCharX();
-void PutChar();
-
-__attribute__((noipa))
-void KPrintF(const char* fmt, ...) {
-	va_list vl;
-	va_start(vl, fmt);
-	union { long(*func)(long mode, const char* string); ULONG ulong; UWORD* puword; } UaeDbgLog;
-	UaeDbgLog.ulong = 0xf0ff60;
-	if(*UaeDbgLog.puword == 0x4eb9 || *UaeDbgLog.puword == 0xa00e) {
-		char temp[128];
-		RawDoFmt((CONST_STRPTR)fmt, vl, PutChar, temp);
-		UaeDbgLog.func(86, temp);
-	} else {
-		RawDoFmt((CONST_STRPTR)fmt, vl, KPutCharX, 0);
-	}
-}
-
 void warpmode(int on) { // bool
 	union { long(*func)(long mode, int index, const char* param, int param_len, char* outbuf, int outbuf_len); ULONG ulong; UWORD* puword; } UaeConf;
 	UaeConf.ulong = 0xf0ff60;
@@ -126,6 +171,8 @@ enum barto_cmd {
 	barto_cmd_register_resource,
 	barto_cmd_set_idle,
 	barto_cmd_unregister_resource,
+	barto_cmd_load,
+	barto_cmd_save,
 };
 
 enum debug_resource_type {
@@ -232,6 +279,26 @@ void debug_register_copperlist(const void* addr, const char* name, unsigned int 
 
 void debug_unregister(const void* addr) {
 	debug_cmd(barto_cmd_unregister_resource, (unsigned int)addr, 0, 0);
+}
+
+// load/save
+unsigned int debug_load(const void* addr, const char* name) {
+	struct debug_resource resource = {
+		.address = (unsigned int)addr,
+		.size = 0,
+	};
+	my_strncpy(resource.name, name, sizeof(resource.name));
+	debug_cmd(barto_cmd_load, (unsigned int)&resource, 0, 0);
+	return resource.size;
+}
+
+void debug_save(const void* addr, unsigned int size, const char* name) {
+	struct debug_resource resource = {
+		.address = (unsigned int)addr,
+		.size = size,
+	};
+	my_strncpy(resource.name, name, sizeof(resource.name));
+	debug_cmd(barto_cmd_save, (unsigned int)&resource, 0, 0);
 }
 
 #endif

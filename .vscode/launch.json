@@ -5,12 +5,19 @@
             "type": "amiga",
             "request": "launch",
             "preLaunchTask": "compile",
+            "name": "AROS",
+            "config": "A500",
+            "program": "${workspaceFolder}/ciademo",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "amiga",
+            "request": "launch",
+            "preLaunchTask": "compile",
             "name": "Amiga 500",
             "config": "A500",
             "program": "${workspaceFolder}/ciademo",
-            "endcli": false,
-            "uaelog": false,
-            "kickstart": "c:/amiga/roms/Kickstart-v1.3-rev34.5-1987-Commodore-A500-A1000-A2000-CDTV.rom",
+            "kickstart": "${config:amiga.rom-paths.A500}",
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
@@ -20,8 +27,7 @@
             "name": "Amiga 1200",
             "config": "A1200",
             "program": "${workspaceFolder}/ciademo",
-            "uaelog": false,
-            "kickstart": "c:/amiga/roms/Kickstart-v3.1-rev-40.68-1993-Commodore-A1200.rom",
+            "kickstart": "${config:amiga.rom-paths.A1200}",
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
@@ -31,8 +37,7 @@
             "name": "Amiga 4000",
             "config": "A4000",
             "program": "${workspaceFolder}/ciademo",
-            "uaelog": false,
-            "kickstart": "c:/amiga/roms/Kickstart-v3.1-rev40.70-1994-Commodore-A4000.rom",
+            "kickstart": "${config:amiga.rom-paths.A4000}",
             "internalConsoleOptions": "openOnSessionStart"
         }
     ]

@@ -18,7 +18,59 @@
 void *memcpy (void *, const void *, unsigned long);
 void *memset (void *, int, unsigned long);
 void *memmove (void *, const void *, unsigned long);
+void memclr(void* dest, unsigned long len);
 unsigned long strlen (const char *);
+
+#if defined(DEBUG)
+
+void warpmode(int on); // bool on/off
+void KPrintF(const char* fmt, ...); // output to debugger
+
+// WinUAE debug overlay, coordinates are PAL-based (0,0)-(768,576)
+void debug_clear();
+void debug_rect(short left, short top, short right, short bottom, unsigned int color);
+void debug_filled_rect(short left, short top, short right, short bottom, unsigned int color);
+void debug_text(short left, short top, unsigned int color, const char* fmt, ...);
+
+// profiler
+void debug_start_idle();
+void debug_stop_idle();
+
+// Graphics debugger
+enum debug_resource_flags {
+	debug_resource_bitmap_interleaved = 1 << 0,
+	debug_resource_bitmap_masked = 1 << 1,
+	debug_resource_bitmap_ham = 1 << 2,
+};
+
+void debug_register_bitmap(const void* addr, const char* name, short width, short height, short numPlanes, unsigned short flags);
+void debug_register_palette(const void* addr, const char* name, short numEntries, unsigned short flags);
+void debug_register_copperlist(const void* addr, const char* name, unsigned int size, unsigned short flags);
+void debug_unregister(const void* addr); // NULL to unregister all
+
+// load/save data during debugging
+unsigned int debug_load(const void* addr, const char* name); // returns size (0 if file not found)
+void debug_save(const void* addr, unsigned int size, const char* name);
+
+#else
+
+#define warpmode(on)
+#define KPrintF(fmt, ...)
+
+#define debug_clear()
+#define debug_rect(left, top, right, bottom, color)
+#define debug_filled_rect(left, top, right, bottom, color)
+#define debug_text(left, top, color, fmt, ...)
+
+#define debug_start_idle()
+#define debug_stop_idle()
+
+#define debug_register_bitmap(addr, name, width, height, numPlanes, flags)
+#define debug_register_palette(addr, name, numEntries, flags)
+#define debug_register_copperlist(addr, name, size, flags)
+#define debug_unregister(addr)
+
+#endif
 
 #define INCBIN(name, file) INCBIN_SECTION(name, file, ".rodata", "")
 #define INCBIN_CHIP(name, file) INCBIN_SECTION(name, file, ".INCBIN.MEMF_CHIP", "aw")
@@ -84,53 +136,6 @@ inline short modsw(int a, short b) {
 	asm("divsw %1,%0\n swap %0":"+d"(a): "mid"(b): "cc");
 	return a;
 }
-
-#if defined(DEBUG)
-
-void warpmode(int on); // bool on/off
-void KPrintF(const char* fmt, ...); // output to debugger
-
-// WinUAE debug overlay, coordinates are PAL-based (0,0)-(768,576)
-void debug_clear();
-void debug_rect(short left, short top, short right, short bottom, unsigned int color);
-void debug_filled_rect(short left, short top, short right, short bottom, unsigned int color);
-void debug_text(short left, short top, unsigned int color, const char* fmt, ...);
-
-// profiler
-void debug_start_idle();
-void debug_stop_idle();
-
-// Graphics debugger
-enum debug_resource_flags {
-	debug_resource_bitmap_interleaved = 1 << 0,
-	debug_resource_bitmap_masked = 1 << 1,
-	debug_resource_bitmap_ham = 1 << 2,
-};
-
-void debug_register_bitmap(const void* addr, const char* name, short width, short height, short numPlanes, unsigned short flags);
-void debug_register_palette(const void* addr, const char* name, short numEntries, unsigned short flags);
-void debug_register_copperlist(const void* addr, const char* name, unsigned int size, unsigned short flags);
-void debug_unregister(const void* addr);
-
-#else
-
-#define warpmode(on)
-#define KPrintF(fmt, ...)
-
-#define debug_clear()
-#define debug_rect(left, top, right, bottom, color)
-#define debug_filled_rect(left, top, right, bottom, color)
-#define debug_text(left, top, color, fmt, ...)
-
-#define debug_start_idle()
-#define debug_stop_idle()
-
-#define debug_register_bitmap(addr, name, width, height, numPlanes, flags)
-#define debug_register_palette(addr, name, numEntries, flags)
-#define debug_register_copperlist(addr, name, size, flags)
-#define debug_unregister(addr)
-
-#endif
 
 #ifdef __cplusplus
 	} // extern "C"

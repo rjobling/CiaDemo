@@ -9,11 +9,12 @@
             "command": "${command:amiga.bin-path}\\gnumake.exe",
             "args": [
                 "-j4",
+                "program=${config:amiga.program}",
             ],
             "options": {
                 "cwd": "${workspaceRoot}",
                 "env": {
-                    "PATH": "${command:amiga.bin-path}\\opt\\bin;${command:amiga.bin-path}"
+                    "PATH": "${env:PATH};${command:amiga.bin-path}\\opt\\bin;${command:amiga.bin-path}"
                 }
             },
             "problemMatcher": [
