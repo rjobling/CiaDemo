@@ -8,6 +8,7 @@
             "name": "AROS",
             "config": "A500",
             "program": "${workspaceFolder}/ciademo",
+            "uaelog": false,
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
@@ -17,6 +18,7 @@
             "name": "Amiga 500",
             "config": "A500",
             "program": "${workspaceFolder}/ciademo",
+            "uaelog": false,
             "kickstart": "${config:amiga.rom-paths.A500}",
             "internalConsoleOptions": "openOnSessionStart"
         },
@@ -27,6 +29,7 @@
             "name": "Amiga 1200",
             "config": "A1200",
             "program": "${workspaceFolder}/ciademo",
+            "uaelog": false,
             "kickstart": "${config:amiga.rom-paths.A1200}",
             "internalConsoleOptions": "openOnSessionStart"
         },
@@ -37,6 +40,7 @@
             "name": "Amiga 4000",
             "config": "A4000",
             "program": "${workspaceFolder}/ciademo",
+            "uaelog": false,
             "kickstart": "${config:amiga.rom-paths.A4000}",
             "internalConsoleOptions": "openOnSessionStart"
         }
